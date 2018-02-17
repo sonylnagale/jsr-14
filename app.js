@@ -1,10 +1,10 @@
 
-$('body').on('click', function() {
-    var x = event.clientX + "px";
-    var y = event.clientY + "px";
-    console.log("X: " + x + "&" + "Y: " + y);
-    $("#" + currentAnimal).css({"top":y,"left":x});
-});
+// $('body').on('click', function() {
+//     var x = event.clientX + "px";
+//     var y = event.clientY + "px";
+//     console.log("X: " + x + "&" + "Y: " + y);
+//     $("#" + currentAnimal).css({"top":y,"left":x});
+// });
 
 
 function FarmAnimal(name, image, sound, x, y) {
@@ -17,6 +17,7 @@ function FarmAnimal(name, image, sound, x, y) {
 }
 
 var animalOptions = [];
+var animals = {};
 
 var sparrow = new FarmAnimal("sparrow","http://www.ikalta.com/ga/farm/images/sparrow.gif","twitter twitter");
 animalOptions.push(sparrow);
@@ -33,12 +34,15 @@ animalOptions.push(hippo);
 var falcon = new FarmAnimal("falcon","http://www.ikalta.com/ga/farm/images/falcon.gif","screeech");
 animalOptions.push(falcon);
 
- 
+
 $(document).ready(function () {
-	$(".animal").click(function() {
-		animal = $(".animal").attr("id");
-		console.log(animal);
-		eval(animal).talk()
+  for (var i = 0; i < animalOptions.length; i++) {
+    var animal = animalOptions[i];
+  }
+
+  $(".container-farm").on("click", ".animal", function(e) {
+
+    animals[$(this).attr('name')].talk();
 	})
 });
 
@@ -58,4 +62,5 @@ function newAnimal() {
 	currentAnimal = animal.name+animalNumber;
 	animalNumber += 1;
 	$(".container-farm").append($newAnimal);
+  animals[animal.name] = animal;
 }
